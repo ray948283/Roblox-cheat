@@ -1,0 +1,14 @@
+local tool = script.Parent
+local player = game.Players.LocalPlayer
+
+tool.Activated:Connect(function()
+    local character = player.Character
+    if not character then return end
+
+    local mouse = player:GetMouse()
+    local root = character:FindFirstChild("HumanoidRootPart")
+
+    if root and mouse.Hit then
+        root.CFrame = CFrame.new(mouse.Hit.Position + Vector3.new(0, 3, 0))
+    end
+end)
