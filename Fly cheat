@@ -1,0 +1,26 @@
+local flying = false
+local speed = 50
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local root = character:WaitForChild("HumanoidRootPart")
+
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.MaxForce = Vector3.new(0, 0, 0)
+bodyVelocity.Velocity = Vector3.zero
+bodyVelocity.Parent = root
+
+game:GetService("UserInputService").InputBegan:Connect(function(input, processed)
+    if processed then return end
+
+    if input.KeyCode == Enum.KeyCode.F then
+        flying = not flying
+
+        if flying then
+            bodyVelocity.MaxForce = Vector3.new(100000, 100000, 100000)
+            bodyVelocity.Velocity = Vector3.new(0, speed, 0)
+        else
+            bodyVelocity.MaxForce = Vector3.zero
+        end
+    end
+end)
